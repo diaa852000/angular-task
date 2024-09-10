@@ -1,46 +1,41 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import * as echarts from 'echarts';
 
-
 @Component({
   selector: 'app-chart',
   standalone: true,
   imports: [],
   templateUrl: './chart.component.html',
-  styleUrl: './chart.component.css'
+  styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit {
+  private chart: echarts.ECharts | undefined;
+
+  title: string = "إحصائيات إستخدام القسيمة";
 
   constructor(private el: ElementRef) { }
 
   ngOnInit(): void {
-    this.renderChart();
+    this.renderChart('monthly'); 
   }
 
-  renderChart(): void {
+  renderChart(view: 'monthly' | 'yearly'): void {
     const chartDom = this.el.nativeElement.querySelector('#chart-container');
-    const chart = echarts.init(chartDom);
+    this.chart = echarts.init(chartDom);
 
-    const options = {
-      title: {
-        text: 'إحصائيات استخدام القسيمة',
-        left: 'right',
-        textStyle: {
-          fontSize: 14,
-          fontWeight: '400',
-          fontFamily: "'Neo Sans Arabic', 'sans-serif'",
-          color: "#1C1C28"
-        },
-        // todo: make it as a component
-        subtext: "05 يوليو , 2023 - 05 أغسطس , 2023",
-        subtextStyle: {
-          fontSize: 14,
-          fontFamily: "'Neo Sans Arabic', 'sans-serif'",
-          color: "#99A1B7",
-          fontWeight: "400"
-        }
-      },
-      // todo: change the style of it
+    const options = this.getChartOptions(view);
+
+    this.chart.setOption(options);
+    window.addEventListener('resize', () => {
+      this.chart?.resize();
+    });
+  }
+
+  getChartOptions(view: 'monthly' | 'yearly') {
+    const monthlyData = [120, 200, 150, 80, 70, 110, 130, 250, 180, 210, 160, 190];
+    const yearlyData = [1500, 2000, 1700, 1800, 1900, 1600, 1400, 1300, 1200, 1100, 1500, 1600];
+
+    return {
       tooltip: {
         trigger: 'axis',
         formatter: '{b}: {c} استخدام',
@@ -55,22 +50,25 @@ export class ChartComponent implements OnInit {
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: ['ديسمبر', 'نوفمبر', 'أكتوبر', 'سبتمبر', 'أغسطس', 'يوليو', 'يونيو', 'مايو', 'أبريل', 'مارس', 'فبراير', 'يناير'], 
+        data: view === 'monthly'
+          ? ['ديسمبر', 'نوفمبر', 'أكتوبر', 'سبتمبر', 'أغسطس', 'يوليو', 'يونيو', 'مايو', 'أبريل', 'مارس', 'فبراير', 'يناير']
+          : ['2020', '2021', '2022', '2023'],
         axisLine: {
           lineStyle: {
-            color: '#9291A5',
+            color: '#fff',
           },
+          interval: 0,
         },
         axisLabel: {
           fontFamily: "'Neo Sans Arabic', 'sans-serif'",
           fontWeight: '500',
           fontSize: 12,
           color: '#9291A5',
-          interval: 0
         },
       },
       yAxis: {
         type: 'value',
+        min: -30,
         axisLine: {
           lineStyle: {
             color: '#E0E0E0'
@@ -83,10 +81,9 @@ export class ChartComponent implements OnInit {
           color: '#9291A5',
           show: false
         },
-        
       },
       series: [{
-        data: [120, 200, 150, 80, 70, 110, 130, 250, 180, 210, 160, 190],
+        data: view === 'monthly' ? monthlyData : yearlyData,
         type: 'line',
         smooth: true,
         itemStyle: {
@@ -95,19 +92,28 @@ export class ChartComponent implements OnInit {
         areaStyle: {
           color: 'rgba(138, 116, 249, 0.3)',
         },
-        
+        lineStyle: {
+          width: 3, 
+        }
       }],
       grid: {
         right: "8px",
         left: "8px",
-        bottom: "8px",
+        bottom: "0px", 
         containLabel: true
       }
     };
-
-    chart.setOption(options);
-    window.addEventListener('resize', () => {
-      chart.resize();
-    });
   }
+
+  handleViewChange(event: Event): void {
+    const target = event.target as HTMLSelectElement; 
+    const selectedValue = target.value;
+  
+    if (selectedValue === 'monthly') {
+      this.renderChart('monthly');
+    } else if (selectedValue === 'yearly') {
+      this.renderChart('yearly');
+    }
+  }
+  
 }

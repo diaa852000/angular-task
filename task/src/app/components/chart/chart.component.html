@@ -1,4 +1,33 @@
-<div 
-    id="chart-container" 
-    class="xl:max-w-[839px] w-full h-[264px] bg-white border-[#EBEBEB] p-4 "
-></div>
+<div class="h-[264px] xl:max-w-[839px]  relative">
+  <div class="flex justify-between items-center p-4 absolute top-0 left-0 z-30 w-full">
+    <div class="p-0 w-[68px] h-[31px] border border-[#E8E8E8] relative rounded-lg bg-[#FAFAFA] cursor-pointer pl-2 pr-3">
+      <svg 
+        width="10" 
+        height="11" 
+        viewBox="0 0 10 11" 
+        fill="none" 
+        xmlns="http://www.w3.org/2000/svg"
+        class="absolute top-1/2 -translate-y-1/2 cursor-pointer pointer-events-none">
+        <path 
+          d="M2.05799 4.20831L4.56462 6.87612C4.86064 7.19118 5.34505 7.19118 5.64108 6.87612L8.14771 4.20831"
+          stroke="#898989" stroke-width="0.826481" stroke-miterlimit="10" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+
+      <select (change)="handleViewChange($event)" 
+        class="text-xs text-text font-arabic bg-transparent w-full h-full text-end cursor-pointer appearance-none outline-none"
+      >
+        <option value="monthly">شهريا</option>
+        <option value="yearly">سنويا</option>
+      </select>
+    </div>
+
+    <div>
+      <h1 class="text-sm font-arabic font-normal text-end">{{title}}</h1>
+      <div class="text-sm font-arabic text-[#99A1B7]">05 يوليو , 2023 - 05 أغسطس , 2023</div>
+    </div>
+
+  </div>
+
+  <div id="chart-container" class="w-full h-full bg-white border-[#EBEBEB] px-4 py-6 rounded-md border border-border"></div>
+</div>

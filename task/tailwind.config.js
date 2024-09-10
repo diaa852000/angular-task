@@ -18,11 +18,13 @@ module.exports = {
         primary: "#8A74F9",
         secondary: "#E7EAED",
         text: "#1C1C28",
-        primaryHover: "#F5F5F5"
+        primaryHover: "#F5F5F5",
+        border: "#EBEBEB"
       },
       fontFamily: {
         arabic: ['Neo Sans Arabic', 'sans-serif'],
-        english: [ "Inter", 'sans-serif']
+        english: [ "Inter", 'sans-serif'],
+        montserrat: ["Montserrat", 'sans-serif']
       }
     },
   },
