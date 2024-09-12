@@ -1,3 +1,4 @@
+import { ActiveTicketService } from './../../services/active-ticket.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { QrCodeComponent } from "../qr-code/qr-code.component";
@@ -8,19 +9,35 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [CommonModule, QrCodeComponent, TooltipModule, InputSwitchModule, FormsModule],
+  imports: [
+    CommonModule, 
+    QrCodeComponent, 
+    TooltipModule, 
+    InputSwitchModule, 
+    FormsModule,
+  ],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css'
 })
 export class CardComponent {
+
   text: string = "عرض التذكرة الخاصة بالفيلم";
   ticketLink: string = "www.tazkty.com/473847";
   isCopied: boolean = false;
-  expiration: string = "فعال حتي 15 يوليو 2023"; 
   shareBtnText: string = "مشاركة"
   discount: number = 0.25;
   discountText: string = "خصم";
-  isChecked: boolean = true;
+  flag!: boolean;
+  expiration: string = 'فعال حتي 15 يوليو 2023';
+
+  constructor(private activeTicketService: ActiveTicketService) {}
+
+  ngOnInit() {
+    this.activeTicketService.flag.subscribe(flag => {
+      this.flag = flag;
+      this.expiration = this.flag ? "فعال حتي 15 يوليو 2023" : "غير فعال";
+    });
+  }
 
   copyText(): void {
     navigator.clipboard.writeText(this.ticketLink).then(() => {
@@ -29,10 +46,6 @@ export class CardComponent {
       alert('Failed to copy text: ' + err);
     });
     this.isCopied = false;
-  }
-
-  onIsCheckedChange(): void {
-    console.log('isChecked value changed:', this.isChecked);
   }
 
 }

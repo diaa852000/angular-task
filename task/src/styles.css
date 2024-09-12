@@ -9,7 +9,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
     margin: 0;
     padding: 0;
@@ -20,12 +19,33 @@ body {
     background-color: #f3f5f7;
 }
 
+body[dir="ltr"] {
+    @apply font-english
+}
+
+body[dir="rtl"] {
+    @apply font-arabic
+}
+
+
+.arabic {
+    direction: rtl;
+    @apply font-arabic
+}
+
+.english{
+    direction: ltr;
+    @apply font-english
+}
+
+
 .p-tooltip .p-tooltip-text {
     background-color: transparent !important;
 }
 
 .p-tooltip {
     position: absolute;
+    background-color: #1c1c28;
 }
 
 .p-tooltip:after {
@@ -36,7 +56,7 @@ body {
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent transparent #1C1C28 transparent;
+    border-color: transparent transparent #1c1c28 transparent;
 }
 
 .p-datatable-thead {
@@ -68,3 +88,4 @@ span.p-element.p-dropdown-label.p-inputtext {
     justify-content: center;
     align-items: center;
 }
+

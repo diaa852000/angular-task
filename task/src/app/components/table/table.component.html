@@ -24,7 +24,7 @@
         <ng-template pTemplate="body" let-ticket let-i="rowIndex">
             <tr class="border-b border-t mt-1">
                 <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-arabic">
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center justify-center lg:justify-start gap-4">
                         <!-- Download btn -->
                         <button 
                             type="button" 
@@ -73,30 +73,37 @@
                 </td>
                 <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-arabic">
                     {{ticket.purchaseCount}}</td>
-                <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-english">
-                    {{ticket.personCount}}</td>
-                <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-arabic"
-                    style="direction: rtl;">{{ticket.cinema}}</td>
-                <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-english">{{ticket.price}}</td>
-                <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-english">
-                    {{ticket.ticketNumber}}</td>
-                <td class="p-2 bg-white text-center text-[13px] text-text font-arabic flex items-center gap-3">
-                    <div class="flex flex-col">
-                        <span class="font-normal text-xs">{{ticket.name}}</span>
-                        <span class="font-normal text-[10px] text-[#92A1AD] leading-5">{{ticket.phone}}</span>
-                    </div>
-                    <img alt="avatar" [src]="ticket.avatar" width="30"
-                        class="rounded-full align-middle hidden lg:block" />
+                <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-english">{{ticket.personCount}}</td>
+                <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-arabic" 
+                    [ngClass]="{'arabic': isArabic}"
+                    >
+                    {{truncateText(ticket.cinema, 50, ticket)}}
                 </td>
-                <td class="table-cell p-2 bg-white text-center text-[13px] text-[#898995] font-english">{{ i + 1}}</td>
+                <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-english">{{ticket.price}}</td>
+                <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-english">{{ticket.ticketNumber}}</td>
+                <td class="table-cell py-2 px-1 bg-white text-center text-[13px] text-text font-arabic">
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex flex-col flex-1">
+                            <span class="font-normal text-xs">{{ticket.name}}</span>
+                            <span class="font-normal text-[10px] text-[#92A1AD] leading-5">{{ticket.phone}}</span>
+                        </div>
+                        <img 
+                            alt="avatar" 
+                            [src]="ticket.avatar" 
+                            width="29"
+                            class="rounded-full align-middle hidden lg:block" 
+                        />
+                </div>
+                </td>
+                <td class="table-cell py-2 px-1 bg-white text-center text-[13px] text-[#898995] font-english">{{ i + 1}}</td>
             </tr>
         </ng-template>
     </p-table>
 
-    <div class="flex flex-col m:flex-row items-center justify-between p-2" style="direction: rtl;">
+    <div class="flex flex-col m:flex-row items-center justify-between p-2" [ngClass]="{'arabic': isArabic}">
         <div class="flex items-center gap-2 px-2 font-arabic text-text">
             <p class="text-xs">عرض</p>
-            <div class="relative w-max" style="direction: rtl;">
+            <div class="relative w-max" [ngClass]="{'arabic': isArabic}">
                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"
                     class="absolute top-1/2 -translate-y-1/2 right-2 pointer-events-none">
                     <path
@@ -104,15 +111,15 @@
                         fill="#333333" />
                 </svg>
                 <select id="rowsPerPage" (change)="onRowsPerPageChange($event)"
-                    class="border w-max px-4 py-1 rounded-md appearance-none outline-none cursor-pointer text-end text-xs"
-                    style="direction: rtl;">
+                    class="border w-[50px] pr-4 py-1 rounded-md appearance-none outline-none cursor-pointer text-center text-xs "
+                    [ngClass]="{'arabic': isArabic}">
                     <option *ngFor="let option of rowOptions" [value]="option">{{ option }}</option>
                 </select>
             </div>
             <p class="text-xs"> من أصل <span>{{totalRecords}}</span></p>
         </div>
 
-        <div class="flex items-center p-2" style="direction: rtl;">
+        <div class="flex items-center p-2" [ngClass]="{'arabic': isArabic}">
             <button type="button" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"
                 [ngClass]="{'opacity-40': isFirstPage()}">
                 <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
