@@ -26,7 +26,16 @@
                 <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-arabic">
                     <div class="flex items-center gap-4">
                         <!-- Download btn -->
-                        <button type="button" class="border border-[#8a74f9] p-1 rounded-md">
+                        <button 
+                            type="button" 
+                            class="border border-[#8a74f9] p-1 rounded-md"
+                            fileSaver
+                            [method]="'GET'"
+                            [fileName]="'task.pdf'"
+                            [url]="'assets/task.pdf'"
+                            [header]="{ token: 'task' }"
+                            [query]="{ pi: 1, name: 'task' }"
+                        >
                             <svg width="12" height="11" viewBox="0 0 12 11" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path

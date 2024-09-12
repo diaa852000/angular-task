@@ -3,16 +3,31 @@ import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
-
+import { FileSaverModule } from 'ngx-filesaver';
+import { DownloadService } from '../../services/download.service';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule, CommonModule, ButtonModule],
+  imports: [TableModule, CommonModule, ButtonModule, FileSaverModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
 })
 export class TableComponent {
+
+  constructor(private downloadService: DownloadService) {}
+
+  onDownload() {
+    this.downloadService.downloadFile('path/to/file.pdf', 'file.pdf').subscribe({
+      next: () => {
+        console.log('Download completed successfully.');
+      },
+      error: (err) => {
+        console.error('Download error:', err);
+      }
+    });
+  }
+
   tickets = [
     {
       name: 'أحمد محمود',
