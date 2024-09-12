@@ -1,0 +1,133 @@
+<div class="p-2 bg-white rounded-md my-2 overflow-hidden ">
+    <p-table [value]="tickets" [paginator]="true" [rows]="rows" [first]="first" [totalRecords]="totalRecords"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[4, 10]" (onPage)="pageChange($event)"
+        styleClass="p-datatable-striped">
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="table-cell p-3 text-[#898995] text-sm font-arabic font-normal text-center">التنزيل</th>
+                <th class="table-cell p-3 text-[#898995] text-sm font-arabic font-normal text-center">عدد مرات الشراء
+                </th>
+                <th class="table-cell p-3 text-[#898995] text-sm font-arabic font-normal text-center">عدد الأشخاص</th>
+                <th class="table-cell p-3 text-[#898995] text-sm font-arabic font-normal text-center">السينمات</th>
+                <th class="table-cell p-3 text-[#898995] text-sm font-arabic font-normal text-center"
+                    pSortableColumn="price">
+                    <div class="flex items-center justify-center gap-2">
+                        <p-sortIcon field="price" />
+                        <span>قيمة التذكرة</span>
+                    </div>
+                </th>
+                <th class="table-cell p-3 text-[#898995] text-sm font-arabic font-normal text-center">رقم التذكرة</th>
+                <th class="table-cell p-3 text-[#898995] text-sm font-arabic font-normal text-center">المستخدم</th>
+                <th class="table-cell p-3 text-[#898995] text-sm font-arabic font-normal text-center">#</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-ticket let-i="rowIndex">
+            <tr class="border-b border-t mt-1">
+                <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-arabic">
+                    <div class="flex items-center gap-4">
+                        <!-- Download btn -->
+                        <button type="button" class="border border-[#8a74f9] p-1 rounded-md">
+                            <svg width="12" height="11" viewBox="0 0 12 11" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8.83325 5.25799L6.33325 7.75799L3.83325 5.25799M6.33325 7.75799V1.09132M11.3333 9.42466C8.09159 10.508 4.57492 10.508 1.33325 9.42466"
+                                    stroke="#8A74F9" stroke-width="1.25" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </button>
+
+                        <div class="hidden lg:flex items-center gap-4">
+                            <div>
+                                <p class="text-sm">{{ticket.tiketName}}</p>
+                                <div class="flex items-center justify-end gap-2">
+                                    <p class="text-[10px] text-end text-gray-400 font-medium font-english">{{ticket.size}}</p>
+                                    <span class="font-medium text-gray-400">.</span>
+                                    <p class="text-[10px] text-end text-gray-400 font-medium font-english">{{ticket.type}}</p>
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                class="p-2 bg-secondary rounded-md"
+                            >
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                    d="M11.4104 3.2665C11.4104 3.27275 11.4104 3.27275 11.4104 3.279C11.2542 3.27275 11.0979 3.2665 10.9292 3.2665H6.1167L6.78545 2.604C7.39795 1.98525 8.07295 1.4165 8.8542 1.4165C9.6417 1.4165 10.3167 1.98525 10.9292 2.604L11.2792 2.954C11.3667 3.03525 11.4104 3.14775 11.4104 3.2665Z"
+                                    fill="#8A74F9" />
+                                    <path
+                                    d="M13.6917 8.39775C13.9355 8.39775 14.1292 8.19775 14.1292 7.94775V7.39775C14.1292 4.9415 13.3792 4.19775 10.9292 4.19775H6.99172H5.40422C2.95422 4.19775 2.20422 4.94775 2.20422 7.39775V7.6665C2.20422 7.9165 2.39797 8.11025 2.64172 8.11025C3.16672 8.11025 3.58547 8.53525 3.58547 9.054C3.58547 9.57275 3.16672 10.004 2.64172 10.004C2.39797 10.004 2.20422 10.1978 2.20422 10.4478V10.7165C2.20422 13.1728 2.95422 13.9165 5.40422 13.9165H6.98547H10.923C13.373 13.9165 14.123 13.1665 14.123 10.7165C14.123 10.4728 13.9292 10.2728 13.6855 10.2728C13.1605 10.2728 12.7417 9.854 12.7417 9.33525C12.748 8.8165 13.1667 8.39775 13.6917 8.39775ZM7.42922 11.954C7.42922 12.1978 7.22922 12.3978 6.98547 12.3978C6.74172 12.3978 6.54172 12.1978 6.54172 11.954V10.279C6.54172 10.0353 6.74172 9.83525 6.98547 9.83525C7.22922 9.83525 7.42922 10.0353 7.42922 10.279V11.954ZM7.42922 7.83525C7.42922 8.079 7.22922 8.279 6.98547 8.279C6.74172 8.279 6.54172 8.079 6.54172 7.83525V6.16025C6.54172 5.9165 6.74172 5.7165 6.98547 5.7165C7.22922 5.7165 7.42922 5.9165 7.42922 6.16025V7.83525Z"
+                                    fill="#8A74F9" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+                <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-arabic">
+                    {{ticket.purchaseCount}}</td>
+                <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-english">
+                    {{ticket.personCount}}</td>
+                <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-arabic"
+                    style="direction: rtl;">{{ticket.cinema}}</td>
+                <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-english">{{ticket.price}}</td>
+                <td class="table-cell p-2 bg-white text-center text-[13px] text-text font-english">
+                    {{ticket.ticketNumber}}</td>
+                <td class="p-2 bg-white text-center text-[13px] text-text font-arabic flex items-center gap-3">
+                    <div class="flex flex-col">
+                        <span class="font-normal text-xs">{{ticket.name}}</span>
+                        <span class="font-normal text-[10px] text-[#92A1AD] leading-5">{{ticket.phone}}</span>
+                    </div>
+                    <img alt="avatar" [src]="ticket.avatar" width="30"
+                        class="rounded-full align-middle hidden lg:block" />
+                </td>
+                <td class="table-cell p-2 bg-white text-center text-[13px] text-[#898995] font-english">{{ i + 1}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <div class="flex flex-col m:flex-row items-center justify-between p-2" style="direction: rtl;">
+        <div class="flex items-center gap-2 px-2 font-arabic text-text">
+            <p class="text-xs">عرض</p>
+            <div class="relative w-max" style="direction: rtl;">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="absolute top-1/2 -translate-y-1/2 right-2 pointer-events-none">
+                    <path
+                        d="M9.03522 4.67403C9.1413 4.56254 9.28455 4.5 9.43383 4.5C9.58311 4.5 9.72636 4.56254 9.83244 4.67403C9.88481 4.72877 9.9264 4.79403 9.95479 4.866C9.98318 4.93796 9.9978 5.01521 9.9978 5.09323C9.9978 5.17125 9.98318 5.24849 9.95479 5.32046C9.9264 5.39243 9.88481 5.45768 9.83244 5.51243L6.64682 8.82625C6.5405 8.93758 6.39715 9 6.2478 9C6.09845 9 5.95511 8.93758 5.84879 8.82625L2.66317 5.51243C2.61079 5.45768 2.5692 5.39243 2.54081 5.32046C2.51242 5.24849 2.4978 5.17125 2.4978 5.09323C2.4978 5.01521 2.51242 4.93796 2.54081 4.866C2.5692 4.79403 2.61079 4.72877 2.66317 4.67403C2.76925 4.56254 2.9125 4.5 3.06178 4.5C3.21106 4.5 3.35431 4.56254 3.46039 4.67403L6.24903 7.3917L9.03522 4.67403Z"
+                        fill="#333333" />
+                </svg>
+                <select id="rowsPerPage" (change)="onRowsPerPageChange($event)"
+                    class="border w-max px-4 py-1 rounded-md appearance-none outline-none cursor-pointer text-end text-xs"
+                    style="direction: rtl;">
+                    <option *ngFor="let option of rowOptions" [value]="option">{{ option }}</option>
+                </select>
+            </div>
+            <p class="text-xs"> من أصل <span>{{totalRecords}}</span></p>
+        </div>
+
+        <div class="flex items-center p-2" style="direction: rtl;">
+            <button type="button" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"
+                [ngClass]="{'opacity-40': isFirstPage()}">
+                <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.60035 5.30999L12.0479 9.74999L7.60035 14.19" stroke="#7E8299" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+
+            <div *ngFor="let page of pageNumbers" class="p-2 inline-block">
+                <button class="py-1 px-[10px] text-gray-500 font-english text-sm"
+                    [ngClass]="{ 'bg-[#8a74f9] text-white rounded-md': first / rows + 1 === page }"
+                    (click)="goToPage(page)" [class.active]="first / rows + 1 === page">
+                    {{ page }}
+                </button>
+            </div>
+
+            <button type="button" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"
+                [ngClass]="{'opacity-40': isLastPage()}">
+                <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.7128 5.30999L6.26527 9.74999L10.7128 14.19" stroke="#7E8299" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+</div>

@@ -74,6 +74,7 @@ export class ChartComponent implements OnInit {
             color: '#E0E0E0'
           }
         },
+        
         axisLabel: {
           fontFamily: "'Neo Sans Arabic', 'sans-serif'",
           fontWeight: '500',
@@ -94,7 +95,7 @@ export class ChartComponent implements OnInit {
         },
         lineStyle: {
           width: 3, 
-        }
+        },
       }],
       grid: {
         right: "8px",

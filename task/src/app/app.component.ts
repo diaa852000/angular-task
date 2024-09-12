@@ -5,7 +5,10 @@ import { TicketInfoComponent } from "./components/ticket-info/ticket-info.compon
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TicketInfoComponent],
+  imports: [
+    RouterOutlet, 
+    TicketInfoComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

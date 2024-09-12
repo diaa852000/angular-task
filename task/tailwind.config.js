@@ -25,6 +25,9 @@ module.exports = {
         arabic: ['Neo Sans Arabic', 'sans-serif'],
         english: [ "Inter", 'sans-serif'],
         montserrat: ["Montserrat", 'sans-serif']
+      },
+      animation: {
+        'ping-once': 'ping 0.75s ease-out 1',
       }
     },
   },
